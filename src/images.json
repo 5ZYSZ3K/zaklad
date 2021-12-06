@@ -1,0 +1,20 @@
+{
+  "alpina": [
+    "./assets/alpina/ALPINA LZ1.325.jpg",
+    "./assets/alpina/ALPINA LZ1.396.jpg",
+    "./assets/alpina/ALPINA LZ1.399.jpg",
+    "./assets/alpina/ALPINA LZ1.401.jpg"
+  ],
+  "ARKADA": [
+    "./assets/ARKADA/ARKADA Z1 B.403.jpg",
+    "./assets/ARKADA/ARKADA Z1 C.405.jpg",
+    "./assets/ARKADA/ARKADA Z1 D.408.jpg",
+    "./assets/ARKADA/ARKADA Z1.292.jpg"
+  ],
+  "ASTRA": [
+    "./assets/ASTRA/ASTRA ZU1 D.415.jpg",
+    "./assets/ASTRA/ASTRA ZU1.340.jpg",
+    "./assets/ASTRA/ASTRA ZU1.410.jpg",
+    "./assets/ASTRA/ASTRA ZU1.412.jpg"
+  ]
+}
