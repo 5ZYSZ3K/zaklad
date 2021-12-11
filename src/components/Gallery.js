@@ -9,7 +9,7 @@ function Gallery() {
   const [urls, setUrls] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://localhost:3700/images/${params.name}`)
+      .get(`http://localhost:4000/images/${params.name}`)
       .then((res) => setUrls(res.data))
       .catch((err) => console.log);
   }, [params.name, setUrls]);

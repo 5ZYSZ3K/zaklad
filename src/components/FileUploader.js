@@ -7,7 +7,7 @@ function FileUploader({ name, path }) {
     setFile(event.target.files);
   };
   const uploadHandler = () => {
-    axios.post(`http://localhost:3700/images/update/${name}`, {
+    axios.post(`http://localhost:4000/images/update/${name}`, {
       headers: {
         "Access-Control-Allow-Origin": "*",
       },

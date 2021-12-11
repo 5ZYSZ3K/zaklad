@@ -6,16 +6,17 @@ function GalleryList() {
   const [namesArray, setNamesArray] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:3700/images/names")
-      .then((res) => setNamesArray(res.data));
+      .get("http://localhost:4000/images/names")
+      .then((res) => setNamesArray(res.data))
+      .catch((err) => console.log);
   }, [setNamesArray]);
   return (
     <div className="gallerylist">
       <h2>Jakieś śmieszne GalleryList</h2>
       <ul>
         {namesArray.map((name) => (
-          <Link to={`/gallery/${name}`}>
-            <li key={name}>{name}</li>
+          <Link key={name} to={`/gallery/${name}`}>
+            <li>{name}</li>
           </Link>
         ))}
       </ul>
