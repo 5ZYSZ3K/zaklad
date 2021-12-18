@@ -8,7 +8,7 @@ import Contact from "./components/Contact";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 
 function App() {
-  let isAuthorized = true;
+  let isAuthorized = false;
   return (
     <BrowserRouter>
       <div className="App">
