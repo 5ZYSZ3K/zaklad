@@ -3,13 +3,14 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function GalleryList() {
+  const { REACT_APP_REST_URI } = process.env;
   const [namesArray, setNamesArray] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:4000/images/names")
+      .get(`${REACT_APP_REST_URI}names`)
       .then((res) => setNamesArray(res.data))
       .catch((err) => console.log);
-  }, [setNamesArray]);
+  }, [setNamesArray, REACT_APP_REST_URI]);
   return (
     <div className="gallerylist">
       <h2>Jakieś śmieszne GalleryList</h2>

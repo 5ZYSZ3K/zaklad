@@ -7,17 +7,18 @@ import FileUploader from "./FileUploader";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 function GalleryUpdater() {
+  const { REACT_APP_REST_URI, REACT_APP_IMAGES_PATH, PUBLIC_URL } = process.env;
   const params = useParams();
   const [urls, setUrls] = useState([]);
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/images/${params.name}`)
+      .get(`${REACT_APP_REST_URI}${params.name}`)
       .then((res) => setUrls(res.data))
       .catch((err) => console.log);
-  }, [params.name, setUrls]);
+  }, [params.name, setUrls, REACT_APP_REST_URI]);
   const saveOrder = () => {
     axios
-      .post(`http://localhost:4000/images/saveorder/${params.name}`, {
+      .post(`${REACT_APP_REST_URI}saveorder/${params.name}`, {
         data: { urls },
       })
       .then(console.log)
@@ -39,14 +40,14 @@ function GalleryUpdater() {
           {(provided) => (
             <div
               className="gallery"
-              key={`gallery${params.name}1`}
+              key={params.name}
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
               {urls.map((data, i) => (
                 <Draggable
-                  key={`${params.name}img${i}`}
-                  draggableId={`draggable-${params.name}img${i}`}
+                  key={data._id}
+                  draggableId={`draggable-${data._id}`}
                   index={i}
                 >
                   {(provided, snapshot) => (
@@ -62,10 +63,11 @@ function GalleryUpdater() {
                       }}
                     >
                       <img
-                        src={process.env.PUBLIC_URL + data}
+                        className="galleryImage"
+                        src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}${params.name}/${data.image}`}
                         alt={params.name}
                       />
-                      <DeleteFile name={params.name} path={data} />
+                      <DeleteFile name={params.name} imageID={data._id} />
                     </div>
                   )}
                 </Draggable>
@@ -75,10 +77,8 @@ function GalleryUpdater() {
           )}
         </Droppable>
       </DragDropContext>
-      <FileUploader
-        name={params.name}
-        path={urls[0]?.split("/").slice(0, -1).join("/") || ""}
-      />
+      <br />
+      <FileUploader name={params.name} />
       <button onClick={saveOrder}>Zapisz kolejność</button>
     </div>
   );

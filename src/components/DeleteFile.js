@@ -1,12 +1,18 @@
 import axios from "axios";
 
-function DeleteFile({ path, name }) {
+function DeleteFile({ imageID, name }) {
+  const { REACT_APP_REST_URI } = process.env;
   const clickHandler = () => {
-    axios.delete(`http://localhost:4000/images/update/${name}`, {
-      data: { path: path.split("/").pop() },
-    });
+    axios
+      .delete(`${REACT_APP_REST_URI}update/${name}/${imageID}`)
+      .then(console.log)
+      .catch(console.log);
   };
-  return <button onClick={clickHandler}>Usuń</button>;
+  return (
+    <div>
+      <button onClick={clickHandler}>Usuń</button>
+    </div>
+  );
 }
 
 export default DeleteFile;
