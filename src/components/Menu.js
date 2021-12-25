@@ -8,10 +8,10 @@ function Menu() {
         <Link to="/">
           <li>About page</li>
         </Link>
-        <Link to="/galleries">
+        <Link to="/kategorie">
           <li>Galleries list page</li>
         </Link>
-        <Link to="/contact">
+        <Link to="/kontakt">
           <li>Contact page</li>
         </Link>
       </ul>

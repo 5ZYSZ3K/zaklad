@@ -1,0 +1,33 @@
+.grid {
+  width: 80%;
+  margin-right: 10%;
+  margin-left: 10%;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.gridImage {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.gridImage img {
+  width: 100%;
+}
+
+.gridItemWrapper {
+  flex: 0 0 calc(100% / 3);
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  box-sizing: border-box;
+}
+
+.gridItemWrapper:before {
+  content: "";
+  display: table;
+  padding-top: 100%;
+}
