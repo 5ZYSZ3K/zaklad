@@ -1,0 +1,120 @@
+.menu {
+  width: 100%;
+  border-bottom: 3px solid #93735b;
+  position: relative;
+  background-color: lightgray;
+}
+.menu img {
+  width: 35%;
+  margin-left: 10%;
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+.menu ul {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  float: right;
+  width: 50%;
+  margin: 0;
+}
+.menu li {
+  list-style-type: none;
+  float: right;
+  margin-right: 10%;
+  padding: 11px 6px 11px 6px;
+}
+.menu .active li,
+.menu li:hover {
+  background-color: #93735b;
+  border-radius: 10px 10px 0 0;
+  color: white;
+}
+.menu .logout {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.menu a {
+  color: inherit;
+  text-decoration: none;
+}
+.menu a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+  border: 3px solid #93735b;
+  padding: 8px 5px;
+}
+.hamburger span {
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  background: black;
+  border-radius: 3px;
+  transform-origin: 4px 0px;
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+    opacity 0.55s ease;
+}
+.hamburger span:last-child {
+  margin-bottom: 0;
+}
+.hamburger span:first-child {
+  transform-origin: 0% 0%;
+}
+
+.hamburger span:nth-last-child(2) {
+  transform-origin: 0% 100%;
+}
+.hamburger.active span {
+  opacity: 1;
+  transform: rotate(-45deg) translate(1px, 2px);
+  background: #232323;
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+.hamburger.active span:first-child {
+  transform: rotate(45deg) translate(3px, -6px);
+}
+.sidebar {
+  position: fixed;
+  width: 400px;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  background: #c7a695;
+  border-left: 3px solid #93735b;
+  transform-origin: 0% 0%;
+  transform: rotate(0deg) translate(403px, 0);
+  transition: transform 1s cubic-bezier(0.77, 0.2, 0.05, 1);
+}
+.sidebar.active {
+  transform: none;
+}
+@media screen and (max-width: 800px) {
+  .hamburger {
+    display: block;
+  }
+  .menu ul {
+    display: none;
+  }
+  .menu img {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 400px) {
+  .sidebar {
+    width: 250px;
+    transform: rotate(0deg) translate(253px, 0);
+  }
+}

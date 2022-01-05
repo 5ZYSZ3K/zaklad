@@ -1,30 +1,49 @@
-import GalleryList from "./components/GalleryList";
-import Gallery from "./components/Gallery";
-import GalleryUpdater from "./components/GalleryUpdater";
+import { useContext } from "react";
+import GalleryListUpdater from "./components/GalleryRoutes/GalleryListUpdater";
+import GalleryList from "./components/GalleryRoutes/GalleryList";
+import Gallery from "./components/GalleryRoutes/Gallery";
+import GalleryUpdater from "./components/GalleryRoutes/GalleryUpdater";
 import About from "./components/About";
 import Page404 from "./components/Page404";
-import GalleriesList from "./components/GalleriesList";
+import GalleriesList from "./components/GalleryRoutes/GalleriesList";
 import Menu from "./components/Menu";
 import Contact from "./components/Contact";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import Login from "./components/LoginRoutes/Login";
+import axios from "axios";
+import dotenv from "dotenv";
+import AuthContext from "./components/Context/AuthContext";
+import "./styles/App.css";
+import Footer from "./components/Footer";
+dotenv.config();
+axios.defaults.withCredentials = true;
 
 function App() {
-  let isAuthorized = true;
+  const { isAuthenticated } = useContext(AuthContext);
   return (
     <BrowserRouter>
       <div className="App">
         <Menu />
-        <Routes>
-          <Route path="/kategorie" element={<GalleriesList />} />
-          <Route path="/kategorie/:name" element={<GalleryList />} />
-          <Route
-            path="/galerie/:name"
-            element={isAuthorized ? <GalleryUpdater /> : <Gallery />}
-          />
-          <Route path="/kontakt" element={<Contact />} />
-          <Route path="/" element={<About />} />
-          <Route path="*" element={<Page404 />} />
-        </Routes>
+        <div className="container">
+          <Routes>
+            <Route path="/kategorie" element={<GalleriesList />} />
+            <Route
+              path="/kategorie/:name"
+              element={
+                isAuthenticated ? <GalleryListUpdater /> : <GalleryList />
+              }
+            />
+            <Route
+              path="/kategorie/galerie/:name"
+              element={isAuthenticated ? <GalleryUpdater /> : <Gallery />}
+            />
+            <Route path="/kontakt" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<About />} />
+            <Route path="*" element={<Page404 />} />
+          </Routes>
+        </div>
+        <Footer />
       </div>
     </BrowserRouter>
   );

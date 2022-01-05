@@ -1,0 +1,13 @@
+.container {
+  margin: 0;
+  width: 100%;
+  padding: 4% 15%;
+  box-sizing: border-box;
+  background: linear-gradient(#d8cbc0, #c7a38a);
+  min-height: 65vh;
+}
+@media screen and (max-width: 1500px) {
+  .container {
+    padding: 4% 8%;
+  }
+}

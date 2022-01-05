@@ -1,0 +1,73 @@
+.contactInfo,
+.map {
+  box-sizing: border-box;
+  height: 50vh;
+  float: left;
+}
+.contactInfo {
+  width: 30%;
+}
+.map {
+  width: 70%;
+  padding: 1%;
+}
+.contact {
+  width: 100%;
+  overflow: hidden;
+  min-height: 65vh;
+}
+iframe {
+  width: 100%;
+  height: 100%;
+  border: 3px solid #93735b;
+}
+.contactInfo .content {
+  height: 25%;
+  width: 100%;
+}
+.contactInfo div img {
+  padding: 5% 0;
+  height: 100%;
+  box-sizing: border-box;
+  display: block;
+  float: left;
+}
+.contactInfo div div {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 10%;
+  float: left;
+}
+@media screen and(max-width:1100px) {
+  .contactInfo .content {
+    padding: 2%;
+  }
+}
+@media screen and (max-width: 1000px) {
+  .contactInfo,
+  .map {
+    width: 100%;
+  }
+  .contactInfo {
+    padding: 5% 20%;
+  }
+}
+@media screen and (max-width: 700px) {
+  .map {
+    display: none;
+  }
+  .contactInfo {
+    padding: 5% 10%;
+  }
+}
+@media screen and (max-width: 400px) {
+  .contactInfo div img {
+    padding: 10% 2%;
+  }
+  .contactInfo div div {
+    padding: 10% 0;
+  }
+  .contactInfo {
+    padding: 0;
+  }
+}

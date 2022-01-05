@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "../styles/Gallery.css";
+import "../../styles/Gallery.css";
 import DeleteFile from "./DeleteFile";
 import FileUploader from "./FileUploader";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
@@ -26,7 +26,7 @@ function GalleryUpdater() {
   };
   return (
     <div className="Gallery">
-      <h2>{params.name}</h2>
+      <h1>{params.name.toUpperCase()}</h1>
       <DragDropContext
         onDragEnd={({ destination, source }) => {
           const dest = destination.index;
@@ -51,23 +51,26 @@ function GalleryUpdater() {
                   index={i}
                 >
                   {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={{
-                        ...provided.draggableProps.style,
-                        boxShadow: snapshot.isDragging
-                          ? "0 0 2rem #666"
-                          : "none",
-                      }}
-                    >
-                      <img
-                        className="galleryImage"
-                        src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}${params.name}/${data.image}`}
-                        alt={params.name}
-                      />
-                      <DeleteFile name={params.name} imageID={data._id} />
+                    <div style={{ display: "inline-block" }}>
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        style={{
+                          ...provided.draggableProps.style,
+                          boxShadow: snapshot.isDragging
+                            ? "0 0 2rem #666"
+                            : "none",
+                        }}
+                      >
+                        <img
+                          className="galleryImage"
+                          src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}${params.name}/${data.image}`}
+                          alt={params.name}
+                        />
+                        <h2>{data.name}</h2>
+                        <DeleteFile name={params.name} imageID={data._id} />
+                      </div>
                     </div>
                   )}
                 </Draggable>
