@@ -57,7 +57,7 @@ function FileUploader({ name }) {
         .then((res) => {
           console.log(res);
         })
-        .catch((err) => {
+        .catch(() => {
           setErrorMessage("Serwer nie działa");
         });
     } else setErrorMessage("Uzupełnij nazwę i dodaj zdjęcie!");

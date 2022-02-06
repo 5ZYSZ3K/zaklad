@@ -21,7 +21,7 @@ function Menu() {
           <li>KONTAKT</li>
         </NavLink>
         <NavLink
-          to="/kategorie"
+          to="/kategorie/wybor"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
           <li>GALERIA</li>

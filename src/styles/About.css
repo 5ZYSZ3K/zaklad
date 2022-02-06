@@ -3,57 +3,50 @@
   border-radius: 0.5em;
   box-shadow: 0 0 1.5em 1.5em rgba(255, 255, 255, 0.5);
 }
-.description,
-.offer {
+.field {
   box-sizing: border-box;
   width: 100%;
   overflow: auto;
   padding: 1.5em;
 }
-.description div,
-.description img,
-.offer img,
-.offer div {
+.edit {
+  width: 100%;
+  height: 20vh;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background-color: inherit;
+}
+.field img,
+.field div {
   padding: 2%;
   box-sizing: border-box;
   width: 50%;
   float: left;
 }
-.offer {
-  margin-top: 10em;
-}
 @media screen and (max-width: 1100px) {
-  .description img,
-  .offer img {
+  .field img {
     padding-top: 8%;
   }
-  .offer {
-    margin-top: 0;
-  }
-  .description,
-  .offer {
+  .field {
     padding: 0;
-  }
-  .offer {
-    margin-bottom: 8%;
   }
 }
 @media screen and (max-width: 800px) {
-  .description div,
-  .offer div {
+  .field div {
     width: 100%;
   }
-  .description img {
+  .field:nth-child(2n) img {
     width: 70%;
     margin-left: 15%;
     margin-right: 15%;
   }
-  .offer img {
+  .field:nth-child(2n + 1) img {
     display: none;
   }
 }
 @media screen and (max-width: 500px) {
-  .description img {
+  .field:nth-child(2n) img {
     display: none;
   }
 }

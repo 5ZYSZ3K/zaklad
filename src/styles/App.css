@@ -3,7 +3,8 @@
   width: 100%;
   padding: 4% 15%;
   box-sizing: border-box;
-  background: linear-gradient(#d8cbc0, #c7a38a);
+  background: url("../assets/cork-board.png");
+  background-size: repeat;
   min-height: 65vh;
 }
 @media screen and (max-width: 1500px) {

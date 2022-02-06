@@ -1,9 +1,12 @@
 import { useContext } from "react";
 import GalleryListUpdater from "./components/GalleryRoutes/GalleryListUpdater";
 import GalleryList from "./components/GalleryRoutes/GalleryList";
+import GalleryPicker from "./components/GalleryRoutes/GalleryPicker";
 import Gallery from "./components/GalleryRoutes/Gallery";
+import ProductionGallery from "./components/GalleryRoutes/ProductionGallery";
 import GalleryUpdater from "./components/GalleryRoutes/GalleryUpdater";
-import About from "./components/About";
+import About from "./components/AboutRoutes/About";
+import AboutUpdater from "./components/AboutRoutes/AboutUpdater";
 import Page404 from "./components/Page404";
 import GalleriesList from "./components/GalleryRoutes/GalleriesList";
 import Menu from "./components/Menu";
@@ -27,6 +30,11 @@ function App() {
         <div className="container">
           <Routes>
             <Route path="/kategorie" element={<GalleriesList />} />
+            <Route path="/kategorie/wybor" element={<GalleryPicker />} />
+            <Route
+              path="/kategorie/produkcja"
+              element={<ProductionGallery />}
+            />
             <Route
               path="/kategorie/:name"
               element={
@@ -39,7 +47,10 @@ function App() {
             />
             <Route path="/kontakt" element={<Contact />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<About />} />
+            <Route
+              path="/"
+              element={isAuthenticated ? <AboutUpdater /> : <About />}
+            />
             <Route path="*" element={<Page404 />} />
           </Routes>
         </div>
