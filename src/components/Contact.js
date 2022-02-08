@@ -20,11 +20,11 @@ function Contact() {
         </div>
         <div className="content">
           <img src="assets/phone.svg" alt="phone" />
-          <div>999 999 999</div>
+          <div>606 317 893</div>
         </div>
         <div className="content">
           <img src="assets/mail.svg" alt="@" />
-          <div>test@gmail.com</div>
+          <div>mateuszleksan@onet.pl</div>
         </div>
       </div>
       <div className="map">

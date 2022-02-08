@@ -52,7 +52,14 @@ function About() {
       const imgs = [...images];
       imgs[i] = t.files[0];
       setImages(imgs);
-    } else setErrorMessage("Zły typ pliku!");
+    } else {
+      setErrorMessage("Zły typ pliku!");
+      t.value = "";
+      if (!/safari/i.test(navigator.userAgent)) {
+        t.type = "";
+        t.type = "file";
+      }
+    }
   };
   return (
     <div className="about">

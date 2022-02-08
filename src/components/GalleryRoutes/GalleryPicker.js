@@ -13,7 +13,7 @@ export default function GalleryPicker() {
           <div>
             <img
               className="galleryImage"
-              src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}/picker/kategorie.png`}
+              src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}picker/kategorie.jpg`}
               alt="kategorie"
             />
             <h2>KATEGORIE</h2>
@@ -23,7 +23,7 @@ export default function GalleryPicker() {
           <div>
             <img
               className="galleryImage"
-              src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}/picker/produkcja.png`}
+              src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}picker/produkcja.jpg`}
               alt="produkcja"
             />
             <h2>PRODUKCJA</h2>

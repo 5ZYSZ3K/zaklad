@@ -21,6 +21,7 @@ function Gallery() {
       .get(`${REACT_APP_REST_URI}${params.name}`)
       .then((res) => {
         setUrls(res.data);
+        console.log(res.data);
       })
       .catch((err) => console.log);
   }, [params.name, setUrls, REACT_APP_REST_URI]);
@@ -71,7 +72,7 @@ function Gallery() {
             </div>
           ) : urls[modalSrc].clip ? (
             <video
-              src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}${params.name}/BRYLANT II ZU2 GAMAR.124.mp4`}
+              src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}${params.name}/${urls[modalSrc].clip}`}
               type="video/mp4"
               width="750"
               height="500"

@@ -23,8 +23,8 @@ export default function ImageGrid({ name, image, id, dropHandler }) {
     },
   });
   return (
-    <Link to={`/kategorie/galerie/${name}`} ref={connectDrop}>
-      <div ref={connectDrag}>
+    <Link to={`/kategorie/galerie/${name}`} ref={connectDrag}>
+      <div ref={connectDrop}>
         <img
           className="galleryImage"
           src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}${name}/${image}`}

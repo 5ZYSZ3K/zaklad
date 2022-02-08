@@ -33,7 +33,7 @@ function GalleryListUpdater() {
   };
   return (
     <DndProvider backend={HTML5Backend}>
-      <h2>Jakieś śmieszne GalleryListUpdater</h2>
+      <h2>Lista - updater</h2>
       <div className="gallery">
         {namesArray.map(
           (data, id) =>

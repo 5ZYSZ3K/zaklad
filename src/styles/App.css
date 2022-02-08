@@ -5,7 +5,7 @@
   box-sizing: border-box;
   background: url("../assets/cork-board.png");
   background-size: repeat;
-  min-height: 65vh;
+  min-height: 75vh;
 }
 @media screen and (max-width: 1500px) {
   .container {

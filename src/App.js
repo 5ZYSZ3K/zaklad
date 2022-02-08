@@ -4,6 +4,7 @@ import GalleryList from "./components/GalleryRoutes/GalleryList";
 import GalleryPicker from "./components/GalleryRoutes/GalleryPicker";
 import Gallery from "./components/GalleryRoutes/Gallery";
 import ProductionGallery from "./components/GalleryRoutes/ProductionGallery";
+import ProductionGalleryUpdater from "./components/GalleryRoutes/ProductionGalleryUpdater";
 import GalleryUpdater from "./components/GalleryRoutes/GalleryUpdater";
 import About from "./components/AboutRoutes/About";
 import AboutUpdater from "./components/AboutRoutes/AboutUpdater";
@@ -33,7 +34,13 @@ function App() {
             <Route path="/kategorie/wybor" element={<GalleryPicker />} />
             <Route
               path="/kategorie/produkcja"
-              element={<ProductionGallery />}
+              element={
+                isAuthenticated ? (
+                  <ProductionGalleryUpdater />
+                ) : (
+                  <ProductionGallery />
+                )
+              }
             />
             <Route
               path="/kategorie/:name"
