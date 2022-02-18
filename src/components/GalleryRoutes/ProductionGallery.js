@@ -11,21 +11,31 @@ function Gallery() {
   const turnOnModal = (index) => {
     setModalVisible(true);
     setModalSrc(index);
+    document.body.style = "overflow:hidden";
   };
   const turnOffModal = () => {
     setModalVisible(false);
+    document.body.style = "";
   };
   useEffect(() => {
+    document.body.style = "";
+    const source = axios.CancelToken.source();
     axios
-      .get(REACT_APP_REST_PRODUCTION_URI)
+      .get(REACT_APP_REST_PRODUCTION_URI, { cancelToken: source.token })
       .then((res) => {
         setUrls(res.data);
+        if (!res.data.length)
+          setUrls([{ image: "mocked.jpg", title: "zdjęcie 1", _id: 1 }]);
       })
-      .catch((err) => console.log);
+      .catch(() => {
+        if (!urls.length)
+          setUrls([{ image: "mocked.jpg", title: "zdjęcie 1", _id: 1 }]);
+      });
+    return () => source.cancel();
   }, [setUrls, REACT_APP_REST_PRODUCTION_URI]);
   return (
     <div>
-      <h1>PRODUKCJA</h1>
+      <h1>REALIZACJA</h1>
       <div className="gallery">
         {urls.map((data, i) => {
           return (
@@ -39,7 +49,6 @@ function Gallery() {
                     turnOnModal(i);
                   }}
                 />
-                <h2>{data.title}</h2>
               </div>
             </div>
           );

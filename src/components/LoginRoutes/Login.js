@@ -4,20 +4,19 @@ import AuthContext from "../Context/AuthContext";
 import "../../styles/Input.css";
 
 export default function Register() {
+  if (document.body.style !== "") document.body.style = "";
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const { REACT_APP_LOGIN_URI } = process.env;
-  const { isAuthenticated, checkAuthentication } = useContext(AuthContext);
+  const { checkAuthentication } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState("");
   const submitHandler = () => {
     axios
       .post(REACT_APP_LOGIN_URI, { login, password })
       .then(() => {
         checkAuthentication();
-        console.log(isAuthenticated);
       })
       .catch(() => {
-        console.log(isAuthenticated);
         setErrorMessage("Zły login lub hasło!");
       });
   };

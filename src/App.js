@@ -30,8 +30,8 @@ function App() {
         <Menu />
         <div className="container">
           <Routes>
-            <Route path="/kategorie" element={<GalleriesList />} />
-            <Route path="/kategorie/wybor" element={<GalleryPicker />} />
+            <Route path="/kategorie/wybor" element={<GalleriesList />} />
+            <Route path="/kategorie" element={<GalleryPicker />} />
             <Route
               path="/kategorie/produkcja"
               element={
@@ -43,14 +43,14 @@ function App() {
               }
             />
             <Route
+              path="/kategorie/:category/:name"
+              element={isAuthenticated ? <GalleryUpdater /> : <Gallery />}
+            />
+            <Route
               path="/kategorie/:name"
               element={
                 isAuthenticated ? <GalleryListUpdater /> : <GalleryList />
               }
-            />
-            <Route
-              path="/kategorie/galerie/:name"
-              element={isAuthenticated ? <GalleryUpdater /> : <Gallery />}
             />
             <Route path="/kontakt" element={<Contact />} />
             <Route path="/login" element={<Login />} />

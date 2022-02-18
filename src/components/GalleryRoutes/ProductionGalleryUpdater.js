@@ -8,9 +8,8 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 function ProductionGalleryUpdater() {
   const { REACT_APP_REST_PRODUCTION_URI } = process.env;
   const [namesArray, setNamesArray] = useState([]);
-  const [title, setTitle] = useState("");
   const [file, setFile] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState({});
   const arrayOfTypes = [
     "image/jpeg",
     "image/png",
@@ -23,12 +22,23 @@ function ProductionGalleryUpdater() {
     setNamesArray(temp);
   };
   useEffect(() => {
+    const source = axios.CancelToken.source();
     axios
-      .get(REACT_APP_REST_PRODUCTION_URI)
+      .get(REACT_APP_REST_PRODUCTION_URI, { cancelToken: source.token })
       .then((res) => {
         setNamesArray(res.data);
+        setMessage({
+          message: "",
+          type: false,
+        });
       })
-      .catch((err) => console.log);
+      .catch(() => {
+        setMessage({
+          message: "Krytyczny błąd serwera!",
+          type: false,
+        });
+      });
+    return () => source.cancel();
   }, [setNamesArray, REACT_APP_REST_PRODUCTION_URI]);
   const saveOrder = () => {
     const data = [];
@@ -37,16 +47,32 @@ function ProductionGalleryUpdater() {
     });
     axios
       .post(`${REACT_APP_REST_PRODUCTION_URI}saveorder`, data)
-      .then(console.log)
-      .catch(console.log);
+      .then(() => {
+        setMessage({
+          message: "Pomyślnie zaktualizowano!",
+          type: true,
+        });
+      })
+      .catch(() => {
+        setMessage({
+          message: "Błąd serwera!",
+          type: false,
+        });
+      });
   };
   const fileHandler = (e) => {
     const image = e.target.files[0];
     if (arrayOfTypes.includes(image.type)) {
-      setErrorMessage("");
+      setMessage({
+        type: false,
+        message: "",
+      });
       setFile(image);
     } else {
-      setErrorMessage("Zły typ pliku!");
+      setMessage({
+        type: false,
+        message: "Zły typ pliku!",
+      });
       e.target.value = "";
       if (!/safari/i.test(navigator.userAgent)) {
         e.target.type = "";
@@ -56,34 +82,37 @@ function ProductionGalleryUpdater() {
   };
   const submitHandler = (e) => {
     e.preventDefault();
+    const data = new FormData();
+    data.append("file", file);
     axios
-      .post(`${REACT_APP_REST_PRODUCTION_URI}add`, {
-        title,
-        order: namesArray.length,
-      })
-      .then((id) => {
-        const data = new FormData();
-        data.append("file", file);
-        axios
-          .post(`${REACT_APP_REST_PRODUCTION_URI}update/${id.data}`, data)
-          .catch(() => {
-            setErrorMessage("Błąd serwera!");
-          });
+      .post(`${REACT_APP_REST_PRODUCTION_URI}add/${namesArray.length}`, data)
+      .then(() => {
+        setMessage({
+          type: true,
+          message: "Pomyślnie wysłano!",
+        });
       })
       .catch(() => {
-        setErrorMessage("Błąd serwera!");
+        setMessage({
+          type: false,
+          message: "Błąd serwera!",
+        });
       });
   };
   return (
     <DndProvider backend={HTML5Backend}>
-      <h2>Produkcja - updater</h2>
+      <h2>REALIZACJA - AKTUALIZOWANIE</h2>
+      {message.message && (
+        <p style={{ fontWeight: 700, color: message.type ? "green" : "red" }}>
+          {message.message}
+        </p>
+      )}
       <div className="gallery">
         {namesArray.map((data, id) => {
           return (
             data && (
               <ImageGrid
                 key={id}
-                name={data.title}
                 path="production"
                 id={id}
                 dropHandler={dropHandler}
@@ -97,14 +126,8 @@ function ProductionGalleryUpdater() {
       <button onClick={saveOrder}>Zapisz kolejność</button>
       <form onSubmit={submitHandler}>
         <input type="file" onChange={fileHandler} />
-        <input
-          onChange={(e) => {
-            setTitle(e.target.value);
-          }}
-        />
         <input type="submit" value="dodaj" />
       </form>
-      <p>{errorMessage}</p>
     </DndProvider>
   );
 }

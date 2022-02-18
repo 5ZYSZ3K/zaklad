@@ -12,19 +12,29 @@ function Gallery() {
   const turnOnModal = (index) => {
     setModalVisible(true);
     setModalSrc(index);
+    if (/safari/i.test(navigator.userAgent)) {
+      document.body.style = "overflow:hidden";
+    } else {
+      document.body.style = "-webkit-overflow-scrolling: touch";
+    }
   };
   const turnOffModal = () => {
     setModalVisible(false);
+    document.body.style = "";
   };
   useEffect(() => {
+    document.body.style = "";
+    const source = axios.CancelToken.source();
     axios
-      .get(`${REACT_APP_REST_URI}${params.name}`)
+      .get(`${REACT_APP_REST_URI}${params.category}/${params.name}`, { cancelToken: source.token })
       .then((res) => {
         setUrls(res.data);
-        console.log(res.data);
       })
-      .catch((err) => console.log);
-  }, [params.name, setUrls, REACT_APP_REST_URI]);
+      .catch(() => {
+        setUrls([]);
+      });
+    return () => source.cancel();
+  }, [params.name, params.category, setUrls, REACT_APP_REST_URI]);
   return (
     <div>
       <h1>{params.name.toUpperCase()}</h1>
@@ -35,13 +45,12 @@ function Gallery() {
               <div>
                 <img
                   className="galleryImage"
-                  src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}/${params.name}/${data.image}`}
+                  src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}/${params.category}/${params.name}/${data.image}`}
                   alt={params.name}
                   onClick={() => {
                     turnOnModal(i);
                   }}
                 />
-                <h2>{data.name}</h2>
               </div>
             </div>
           );
@@ -63,7 +72,7 @@ function Gallery() {
               <div>
                 <iframe
                   title="3d"
-                  src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}${params.name}/${urls[modalSrc].animation}`}
+                  src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}/${params.category}/${params.name}/${urls[modalSrc].animation}`}
                   allowFullScreen
                   frameBorder="0"
                   scrolling="no"
@@ -72,7 +81,7 @@ function Gallery() {
             </div>
           ) : urls[modalSrc].clip ? (
             <video
-              src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}${params.name}/${urls[modalSrc].clip}`}
+              src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}/${params.category}/${params.name}/${urls[modalSrc].clip}`}
               type="video/mp4"
               width="750"
               height="500"
@@ -82,7 +91,7 @@ function Gallery() {
           ) : (
             <img
               className="modalImage"
-              src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}${params.name}/${urls[modalSrc].image}`}
+              src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}/${params.category}/${params.name}/${urls[modalSrc].image}`}
               alt={params.name}
             />
           )}

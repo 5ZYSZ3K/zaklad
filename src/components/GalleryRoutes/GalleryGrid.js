@@ -1,16 +1,11 @@
 import { useDrag, useDrop } from "react-dnd";
 import dotenv from "dotenv";
 import DeleteFile from "./DeleteFile";
+import { useParams } from "react-router-dom";
 import "../../styles/Gallery.css";
 
-export default function GalleryGrid({
-  path,
-  name,
-  image,
-  id,
-  dropHandler,
-  updater,
-}) {
+export default function GalleryGrid({ path, image, id, dropHandler, updater }) {
+  const params = useParams();
   dotenv.config();
   const { PUBLIC_URL, REACT_APP_IMAGES_PATH } = process.env;
   const [, connectDrag] = useDrag({
@@ -34,11 +29,10 @@ export default function GalleryGrid({
       <div ref={connectDrop}>
         <img
           className="galleryImage"
-          src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}${path}/${image}`}
-          alt={name}
+          src={`${PUBLIC_URL}${REACT_APP_IMAGES_PATH}${params.category}/${path}/${image}`}
+          alt={path}
         />
-        <h2>{name}</h2>
-        <DeleteFile name={path} imageID={updater} />
+        <DeleteFile imageID={updater} />
       </div>
     </div>
   );

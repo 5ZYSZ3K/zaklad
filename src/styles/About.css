@@ -17,6 +17,9 @@
   color: inherit;
   background-color: inherit;
 }
+.field p{
+  font-size: 1.1rem;
+}
 .field img,
 .field div {
   padding: 2%;

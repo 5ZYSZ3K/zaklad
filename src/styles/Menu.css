@@ -2,7 +2,7 @@
   width: 100%;
   border-bottom: 3px solid #93735b;
   position: relative;
-  background: url("../assets/marmor.jpg");
+  background: url("../assets/MARMUR.jpg");
 }
 .menu img {
   width: 35%;
@@ -74,16 +74,16 @@
 .hamburger span:nth-last-child(2) {
   transform-origin: 0% 100%;
 }
-.hamburger.active span {
+.hamburger.slided span {
   opacity: 1;
   transform: rotate(-45deg) translate(1px, 2px);
   background: #232323;
 }
-.hamburger.active span:nth-child(2) {
+.hamburger.slided span:nth-child(2) {
   opacity: 0;
   transform: rotate(0deg) scale(0.2, 0.2);
 }
-.hamburger.active span:first-child {
+.hamburger.slided span:first-child {
   transform: rotate(45deg) translate(3px, -6px);
 }
 .sidebar {
@@ -98,8 +98,18 @@
   transform: rotate(0deg) translate(403px, 0);
   transition: transform 1s cubic-bezier(0.77, 0.2, 0.05, 1);
 }
-.sidebar.active {
+.sidebar.slided {
   transform: none;
+}
+.sidebar a li{
+  width: 60%;
+  margin: 5% 20%;
+  box-sizing: border-box;
+  display: block;
+  text-align: center;
+}
+.sidebar a:nth-child(1) li{
+  margin-top: 30%;
 }
 @media screen and (max-width: 800px) {
   .hamburger {
@@ -116,5 +126,28 @@
   .sidebar {
     width: 250px;
     transform: rotate(0deg) translate(253px, 0);
+  }
+  .hamburger {
+    top: 12px;
+    right: 12px;
+    padding: 5px 3px;
+  }
+  .hamburger span {
+    width: 21px;
+    height: 4px;
+    margin-bottom: 3px;
+    border-radius: 2px;
+  }
+  .hamburger.slided span {
+    opacity: 1;
+    transform: rotate(-45deg) translate(1px, 0px);
+    background: #232323;
+  }
+  .hamburger.slided span:nth-child(2) {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.2, 0.2);
+  }
+  .hamburger.slided span:first-child {
+    transform: rotate(45deg) translate(4px, -3px);
   }
 }

@@ -11,11 +11,14 @@ function GalleryUpdater() {
   const { REACT_APP_REST_URI } = process.env;
   const params = useParams();
   const [urls, setUrls] = useState([]);
+  const [message, setMessage] = useState({});
   useEffect(() => {
+    const source = axios.CancelToken.source();
     axios
-      .get(`${REACT_APP_REST_URI}${params.name}`)
+      .get(`${REACT_APP_REST_URI}${params.category}/${params.name}`, { cancelToken: source.token })
       .then((res) => setUrls(res.data))
-      .catch((err) => console.log);
+      .catch(() => setUrls([]));
+    return () => source.cancel();
   }, [params.name, setUrls, REACT_APP_REST_URI]);
   const dropHandler = (dest, src) => {
     const temp = [...urls];
@@ -24,20 +27,34 @@ function GalleryUpdater() {
   };
   const saveOrder = () => {
     axios
-      .post(`${REACT_APP_REST_URI}saveorder/${params.name}`, {
+      .post(`${REACT_APP_REST_URI}saveorder/${params.category}/${params.name}`, {
         data: { urls },
       })
-      .then(console.log)
-      .catch(console.log);
+      .then(() => {
+        setMessage({
+          type: true,
+          message: "Pomyślnie zaktualizowano!",
+        });
+      })
+      .catch(() => {
+        setMessage({
+          type: false,
+          message: "Błąd bazy danych, skontaktuj się z administratorem!",
+        });
+      });
   };
   return (
     <DndProvider backend={HTML5Backend}>
       <h1>{params.name.toUpperCase()}</h1>
+      {message.message && (
+        <p style={{ fontWeight: 700, color: message.type ? "green" : "red" }}>
+          {message.message}
+        </p>
+      )}
       <div className="gallery">
         {urls.map((data, i) => (
           <GalleryGrid
             key={data._id}
-            name={data.name}
             path={params.name}
             id={i}
             dropHandler={dropHandler}

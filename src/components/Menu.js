@@ -8,7 +8,7 @@ function Menu() {
   const { isAuthenticated } = useContext(AuthContext);
   const [className, setClassName] = useState("");
   const changeClassName = () => {
-    className ? setClassName("") : setClassName("active");
+    className ? setClassName("") : setClassName("slided");
   };
   return (
     <div className="menu">
@@ -21,7 +21,7 @@ function Menu() {
           <li>KONTAKT</li>
         </NavLink>
         <NavLink
-          to="/kategorie/wybor"
+          to="/kategorie"
           className={({ isActive }) => (isActive ? "active" : "")}
         >
           <li>GALERIA</li>
@@ -38,7 +38,35 @@ function Menu() {
         <span></span>
         <span></span>
       </div>
-      <div className={`sidebar ${className}`}></div>
+      <div className={`sidebar ${className}`}>
+        <NavLink
+          onClick={() => {
+            setClassName("");
+          }}
+          to="/"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          <li>O FIRMIE</li>
+        </NavLink>
+        <NavLink
+          onClick={() => {
+            setClassName("");
+          }}
+          to="/kategorie"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          <li>GALERIA</li>
+        </NavLink>
+        <NavLink
+          onClick={() => {
+            setClassName("");
+          }}
+          to="/kontakt"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          <li>KONTAKT</li>
+        </NavLink>
+      </div>
       {isAuthenticated && <Logout />}
     </div>
   );

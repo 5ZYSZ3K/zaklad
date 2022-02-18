@@ -3,14 +3,27 @@ import { useEffect, useState } from "react";
 import "../../styles/About.css";
 
 function About() {
-  const { REACT_APP_REST_ABOUT_URI } = process.env;
+  const { REACT_APP_REST_ABOUT_URI, REACT_APP_IMAGES_PATH } = process.env;
   const [fields, setFields] = useState([]);
   const [images, setImages] = useState([]);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState({});
   useEffect(() => {
-    axios.get(REACT_APP_REST_ABOUT_URI).then((data) => {
-      setFields(data.data);
-    });
+    axios
+      .get(REACT_APP_REST_ABOUT_URI)
+      .then((data) => {
+        const temp = data.data.map(field => {
+          return {
+            ...field, content: field.content.join("<br/>")
+          }
+        })
+        setFields(temp);
+      })
+      .catch(() => {
+        setMessage({
+          type: false,
+          message: "Krytyczny wewnętrzny błąd serwera, skontaktuj się z Administratorem!"
+        });
+      });
   }, [REACT_APP_REST_ABOUT_URI]);
   const changeHandler = (value, name, i) => {
     const temp = [...fields];
@@ -26,7 +39,7 @@ function About() {
   const clickHandler = (i) => {
     axios
       .post(`${REACT_APP_REST_ABOUT_URI}update`, {
-        content: fields[i].content,
+        content: fields[i].content.split("<br/>"),
         title: fields[i].title,
         _id: fields[i]._id,
       })
@@ -36,24 +49,43 @@ function About() {
           data.append("files", images[i]);
           axios
             .post(`${REACT_APP_REST_ABOUT_URI}update/${fields[i]._id}`, data)
-            .then((data) => {
-              console.log(data);
+            .then(() => {
+              setMessage({
+                type: true,
+                message: "Pomyślnie wysłano!"
+              });
             })
-            .catch((err) => {
-              console.log(err);
+            .catch(() => {
+              setMessage({
+                type: false,
+                message: "Wewnętrzny błąd serwera, skontaktuj się z Administratorem!"
+              });
             });
         }
+        else setMessage({
+          type: true,
+          message: "Pomyślnie wysłano!"
+        });
+      })
+      .catch(() => {
+        setMessage({
+          type: false,
+          message: "Wewnętrzny błąd serwera, skontaktuj się z Administratorem!"
+        });
       });
   };
   const filesHandler = (t, i) => {
     const image = t.files[0];
     if (arrayOfTypes.includes(image.type)) {
-      setErrorMessage("");
+      setMessage({
+        type: true,
+        message: ""
+      });
       const imgs = [...images];
       imgs[i] = t.files[0];
       setImages(imgs);
     } else {
-      setErrorMessage("Zły typ pliku!");
+      setMessage({type:false, message:"Zły typ pliku!"});
       t.value = "";
       if (!/safari/i.test(navigator.userAgent)) {
         t.type = "";
@@ -65,7 +97,7 @@ function About() {
     <div className="about">
       {fields.map((field, i) => (
         <div className="field" key={field._id}>
-          <img alt="field" src={`assets/${field.image}`} />
+          <img alt="field" src={`${REACT_APP_IMAGES_PATH}${field.image}`} />
           <div>
             <input
               onChange={(e) => {
@@ -87,13 +119,13 @@ function About() {
               }}
             />
             <input
-              onClick={() => {
+              onClick={(e) => {
                 clickHandler(i);
               }}
               type="button"
               value="Wyślij"
             />
-            <p style={{ color: "red" }}>{errorMessage}</p>
+            {message.message && <p style={{ color: message.type?"green":"red", fontWeight: 700 }}>{message.message}</p>}
           </div>
         </div>
       ))}
